@@ -26,7 +26,7 @@
 #include "defs.h"
 #include "ui-out.h"
 #include "gdb_assert.h"
-#include "hsail-kernel.h"
+//#include "hsail-kernel.h"
 /* Added for memset */
 #include <string.h>
 
@@ -80,7 +80,7 @@ bool is_hsail_step(void)
         (hsail_is_debug_facilities_loaded() == HSAIL_AGENT_BINARY_AVAILABLE)
       )
     {
-	  hsail_kernel_print_info (current_uiout,-1);
+	  //hsail_kernel_print_info (current_uiout,-1);
       return true;
     }
   /* GPU Stepping: Case#2
@@ -91,7 +91,7 @@ bool is_hsail_step(void)
              (hsail_is_debug_facilities_loaded() == HSAIL_AGENT_BINARY_AVAILABLE)
            )
     {
-	  hsail_kernel_print_info (current_uiout,-1);
+	  //hsail_kernel_print_info (current_uiout,-1);
       return true;
     }
 
