@@ -53,7 +53,7 @@
 #include "CommunicationControl.h"
 
 /* forward declaration of functions */
-static void hsail_info_command(char *arg, int from_tty);
+
 static void hsail_command(char *arg, int from_tty);
 
 void _initialize_hsailcmd (void);
@@ -261,7 +261,7 @@ static bool hsail_info_parameter_check(char* arg)
   return ret_code;
 }
 
-static void hsail_info_command(char *arg, int from_tty)
+void hsail_info_command()
 {
   struct ui_out *uiout = current_uiout;
   int index = 0;
@@ -271,118 +271,16 @@ static void hsail_info_command(char *arg, int from_tty)
   bool foundParam = true;
   HsailWaveDim3 temp_work_item = {0,0,0};
 
-  if (arg == NULL)
-    {
-      hsail_info_param_print_help();
-      return ;
-    }
-  if (!hsail_info_parameter_check(arg))
-    {
-      hsail_info_param_print_help();
-      return ;
-    }
 
-  if (strcmp(arg,"wavefronts") == 0)
-  {
-    /* todo: FB 11279 Disable for Alpha
-    * hsail_print_wave_info (current_uiout, -1);
-    * */
-    hsail_info_param_print_help();
-  }
-  else if (strncmp(arg,"kernels", 7) == 0)
-  {
+
+
     hsail_kernel_print_info (current_uiout, -1);
-  }
-  else if (strncmp(arg,"kernel ", 7) == 0)
-  {
-    arg += 7;
-    hsail_kernel_print_specific_info(arg, current_uiout, -1);
-  }
-  else if (strncmp(arg,"work-groups", 11) == 0 || strncmp(arg,"wgs", 3) == 0)
-  {
     hsail_print_workgroups_info (gs_active_work_group, current_uiout, -1);
-  }
-  else if (strncmp(arg,"work-group ", 11) == 0 || strncmp(arg,"wg ", 3) == 0)
-  {
-    if (strncmp(arg,"work-group ", 11) == 0)
-    {
-      arg += 11;
-    }
-    else
-    {
-      arg += 3;
-    }
-    foundParam = hsail_command_get_argument(arg, "", workGroup, &numItems);
-    if (foundParam && (numItems == 1 || numItems == 3))
-    {
-      /* numItems = 1 assume it is flattened id */
-      if (numItems == 1)
-      {
-        if (workGroup[0] >= 0)
-        {
-          hsail_print_specific_workgroup_by_id_info(workGroup[0], current_uiout, -1);
-        }
-      }
-      else if (numItems == 3)
-      {
-          hsail_print_specific_workgroup_info(workGroup, current_uiout, -1);
-      }
-    }
-    else
-    {
-      ui_out_text(uiout,"use 'info hsail work-group' with Flattened id or x,y,z identifier:\n");
-      ui_out_text(uiout,"'info hsail work-group ID' or 'info hsail work-group x,y,z'\n");
-    }
+    hsail_print_specific_workgroup_by_id_info(workGroup[0], current_uiout, -1);
+    hsail_print_specific_workgroup_info(workGroup, current_uiout, -1);
+    hsail_print_workitem_info (gs_active_work_group, gs_active_work_item, true, current_uiout, -1);
 
-  }
-  else if (strncmp(arg,"work-item", 9) == 0 || strncmp(arg,"wi", 2) == 0)
-  {
-    if (strncmp(arg,"work-item", 9) == 0)
-    {
-      arg += 9;
-    }
-    else
-    {
-      arg += 2;
-    }
 
-    /* If it is "work-item" or "wis", we need to skip the "s" so that it won't take the "s" as
-       another input parameter*/
-    if(strncmp(arg, "s", 1) == 0)
-    {
-      arg += 1;
-    }
-
-    foundParam = hsail_command_get_argument(arg, "", workItem, &numItems);
-    /* if no param was entered then use active work item, else use work item x,y,z. Any other
-       formats are not allowed and explain to the user the allowed formats */
-    if (!foundParam || numItems == 0)
-    {
-      hsail_print_workitem_info (gs_active_work_group, gs_active_work_item, true, current_uiout, -1);
-    }
-    else if (numItems == 3)
-    {
-      foundParam = false;
-      if (workItem[0] == gs_active_work_item.x && workItem[1] == gs_active_work_item.y && workItem[2] == gs_active_work_item.z)
-      {
-        foundParam = true;
-      }
-      temp_work_item.x = workItem[0];
-      temp_work_item.y = workItem[1];
-      temp_work_item.z = workItem[2];
-
-      hsail_print_workitem_info (gs_active_work_group, temp_work_item, foundParam, current_uiout, -1);
-    }
-    else
-    {
-      ui_out_text(uiout,"'info hsail work-item' with no arguments will print info for current work-item\n");
-      ui_out_text(uiout,"'info hsail work-item x,y,z'  will print info for work-item x,y,z\n");
-    }
-  }
-  else
-  {
-    hsail_info_param_print_help();
-  }
 }
 
 

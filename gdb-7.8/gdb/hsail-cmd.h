@@ -36,6 +36,7 @@ void hsail_cmd_list_command(char* arg, int from_tty);
 /* Clear the focus at the end of the dispatch */
 void hsail_cmd_clear_focus(void);
 
+void hsail_info_command();
 /* Function to set the focus wave sent from the Agent */
 void hsail_cmd_set_focus(HsailWaveDim3 focusWg, HsailWaveDim3 focusWi);
 
