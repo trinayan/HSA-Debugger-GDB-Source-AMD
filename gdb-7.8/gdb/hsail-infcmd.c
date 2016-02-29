@@ -93,7 +93,7 @@ bool is_hsail_step(void)
              (hsail_is_debug_facilities_loaded() == HSAIL_AGENT_BINARY_AVAILABLE)
            )
     {
-	  hsail_kernel_print_info (current_uiout,-1);
+	  hsail_info_command();
       return true;
     }
 
