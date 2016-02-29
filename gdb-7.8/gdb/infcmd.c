@@ -963,10 +963,9 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
       clear_proceed_status();
       proceed ((CORE_ADDR) -1, 0, 0);
        //do not want to return immediately
-      if(step_counter == 10)
-      {
-    	  return;
-      }
+
+      printf(" I am at step level %d", step_counter);
+      return;
     }
  }
 
