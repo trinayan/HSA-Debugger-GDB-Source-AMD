@@ -274,9 +274,9 @@ void hsail_info_command()
 
 //Just commenting to remove output clutter
 
-     hsail_kernel_print_info (current_uiout, -1);
-     hsail_print_workgroups_info (gs_active_work_group, current_uiout, -1);
-     hsail_print_specific_workgroup_by_id_info(workGroup[0], current_uiout, -1);
+     //hsail_kernel_print_info (current_uiout, -1);
+     //hsail_print_workgroups_info (gs_active_work_group, current_uiout, -1);
+     //hsail_print_specific_workgroup_by_id_info(workGroup[0], current_uiout, -1);
     //hsail_print_specific_workgroup_info(workGroup, current_uiout, -1);
      hsail_print_workitem_info (gs_active_work_group, gs_active_work_item, true, current_uiout, -1);
 

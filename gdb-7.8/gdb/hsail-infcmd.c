@@ -146,6 +146,8 @@ static void hsail_step_write_momentary_breakpoints(HwDbgInfo_debug dbg,
 
       momentary_bp[i].m_pc      = step_addrs[i];
       momentary_bp[i].m_lineNum = line_num;
+
+      hsail_info_command(); // added this . I believe this will print at every breakpoint hopefully.
     }
 
   hsail_tdep_unmap_momentary_bp_buffer((void*)momentary_bp);
