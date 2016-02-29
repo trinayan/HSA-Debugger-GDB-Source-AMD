@@ -965,9 +965,10 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
        //do not want to return immediately
 
       printf(" I am at step level %d", step_counter);
-      return;
+
     }
  }
+ return;
 
 
 
