@@ -942,9 +942,7 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
 
   int step_counter=0;
 
- for(step_counter=0;step_counter<10;step_counter++)
 
- {
   if (is_hsail_step())
     {
       /*
@@ -964,11 +962,10 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
       proceed ((CORE_ADDR) -1, 0, 0);
        //do not want to return immediately
 
-      printf(" I am at step level %d", step_counter);
+      return;
 
     }
- }
- return;
+
 
 
 
