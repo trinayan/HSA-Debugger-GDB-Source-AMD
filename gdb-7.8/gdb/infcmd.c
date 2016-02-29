@@ -938,7 +938,13 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
   prepare_execution_command (&current_target, async_exec);
 
   count = count_string ? parse_and_eval_long (count_string) : 1;
+//Adding step counter to step in a row multiple times one by one
 
+  int step_counter=0;
+
+ for(step_counter=0;step_counter<10;step_counter++)
+
+ {
   if (is_hsail_step())
     {
       /*
@@ -952,11 +958,13 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
        * hsail_set_step_breakpoints(skip_subroutines ? HSAIL_STEP_OVER : HSAIL_STEP_IN, count);
        */
        hsail_set_step_breakpoints(HSAIL_STEP_IN, count);
+       //Better place to print hsail_info since only after this since the breakpoints have been placed
 
       clear_proceed_status();
       proceed ((CORE_ADDR) -1, 0, 0);
-      return;
+      return;  //do not want to return immediately
     }
+ }
 
   if (!single_inst || skip_subroutines)		/* Leave si command alone.  */
     {
