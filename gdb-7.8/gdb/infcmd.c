@@ -922,6 +922,12 @@ bool hsail_infcmd_is_focus_thread_dispach_thread(void)
 static void
 step_1 (int skip_subroutines, int single_inst, char *count_string)
 {
+
+
+  int step_counter=0;
+
+ for (step_counter=0;step_counter<10;step_counter++)
+ {
   int count = 1;
   struct cleanup *cleanups = make_cleanup (null_cleanup, NULL);
   int async_exec = 0;
@@ -938,9 +944,6 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
   prepare_execution_command (&current_target, async_exec);
 
   count = count_string ? parse_and_eval_long (count_string) : 1;
-//Adding step counter to step in a row multiple times one by one
-
-  int step_counter=0;
 
 
   if (is_hsail_step())
@@ -960,12 +963,10 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
 
       clear_proceed_status();
       proceed ((CORE_ADDR) -1, 0, 0);
-       //do not want to return immediately
-
-      return;
+     // return;
 
     }
-
+ }
 
 
 
