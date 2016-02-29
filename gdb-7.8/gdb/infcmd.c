@@ -962,7 +962,7 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
 
       clear_proceed_status();
       proceed ((CORE_ADDR) -1, 0, 0);
-     // return;
+      return;
 
     }
 
