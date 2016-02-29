@@ -957,15 +957,13 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
        *
        * hsail_set_step_breakpoints(skip_subroutines ? HSAIL_STEP_OVER : HSAIL_STEP_IN, count);
        */
-	   int step_counter=0;
-	  for (step_counter=0;step_counter < 10; step_counter++)
-	  {
+
        hsail_set_step_breakpoints(HSAIL_STEP_IN, count);
        //Better place to print hsail_info since only after this since the breakpoints have been placed
-       hsail_info_command();
+
       clear_proceed_status();
       proceed ((CORE_ADDR) -1, 0, 0);
-	  }
+
       return;
 
     }
