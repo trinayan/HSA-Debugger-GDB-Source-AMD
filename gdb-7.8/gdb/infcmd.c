@@ -924,10 +924,9 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
 {
 
 
-  int step_counter=0;
 
- for (step_counter=0;step_counter<10;step_counter++)
- {
+
+
   int count = 1;
   struct cleanup *cleanups = make_cleanup (null_cleanup, NULL);
   int async_exec = 0;
@@ -966,7 +965,7 @@ step_1 (int skip_subroutines, int single_inst, char *count_string)
      // return;
 
     }
- }
+
 
 
 
