@@ -870,7 +870,11 @@ step_command (char *count_string, int from_tty)
 static void
 next_command (char *count_string, int from_tty)
 {
+ int counter=0;
+ for(counter=0;counter<10;counter++)
+ {
   step_1 (1, 0, count_string);
+ }
 }
 
 /* Likewise, but step only one instruction.  */
@@ -923,13 +927,7 @@ static void
 step_1 (int skip_subroutines, int single_inst, char *count_string)
 {
 
-int step_counter=0;
 
-for(step_counter=0;step_counter<10;step_counter++)
-
-
-
-{
   int count = 1;
   struct cleanup *cleanups = make_cleanup (null_cleanup, NULL);
   int async_exec = 0;
@@ -1024,7 +1022,7 @@ for(step_counter=0;step_counter<10;step_counter++)
 	 disable the longjmp breakpoint as appropriate.  */
       discard_cleanups (cleanups);
     }
-}
+
 }
 
 struct step_1_continuation_args
